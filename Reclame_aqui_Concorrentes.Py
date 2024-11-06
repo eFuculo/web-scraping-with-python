@@ -12,12 +12,7 @@ def coletar_dados_reclameaqui(url, nome_empresa):
     servico = Service(ChromeDriverManager().install())
 
     options = webdriver.ChromeOptions()
-    # options.add_argument('--headless')  # Rodar o navegador em modo headless (sem interface gráfica)
-    # options.add_argument('--start-maximized')  # Maximizar a janela do navegador mesmo em modo headless
-    # options.add_argument('--window-size=1920,1080')  # Definir tamanho da janela em modo headless
-
     navegador = webdriver.Chrome(service=servico, options=options)
-
     navegador.get(url)
     time.sleep(2)
 
@@ -84,16 +79,15 @@ def coletar_dados_reclameaqui(url, nome_empresa):
 
     data_atual = datetime.datetime.now().strftime("%d-%m-%Y")
     nome_arquivo = f"Reclame_aqui_{nome_empresa}_{data_atual}.xlsx"
-    caminho_saida = fr'C:\Users\PBI\Botoclinic Jardins\B.I Documentos - Documentos\B.I\Marketing\BD_Reclame_aqui\{nome_arquivo}'
+    caminho_saida = fr'C:\Users\Diogo Souza\Desktop\{nome_arquivo}'
     df_resumo.to_excel(caminho_saida, index=False)
 
 def job():
     # Lista de URLs e nomes de empresas
     urls = {
-        'clinica-royal-face': 'https://www.reclameaqui.com.br/empresa/clinica-royal-face/',
-        'face-doctor-franchising': 'https://www.reclameaqui.com.br/empresa/face-doctor-franchising/',
-        'botocenter': 'https://www.reclameaqui.com.br/empresa/botocenter/',
-        'botoclinic': 'https://www.reclameaqui.com.br/empresa/botoclinic/'
+        'Amazon': 'https://www.reclameaqui.com.br/empresa/amazon/',
+        'Mercado-Livre': 'https://www.reclameaqui.com.br/empresa/mercado-livre/',
+        'Shopee': 'https://www.reclameaqui.com.br/empresa/shopee/'
     }
 
     # Executar a coleta de dados para cada URL
@@ -104,7 +98,7 @@ def job():
     print("Tarefa realizada com sucesso às", hora_atual)
 
 # Agendar a tarefa para ser executada todos os dias às 17h
-schedule.every().day.at("08:30").do(job)
+schedule.every().day.at("14:23").do(job)
 
 while True:
     schedule.run_pending()
